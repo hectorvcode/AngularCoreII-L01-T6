@@ -10,12 +10,13 @@ import { PostService } from '../services';
 
 
 export class BlogComponent implements OnInit {
+  
   public posts: IPost[] = [];
 
   myForm = {
-    id: "",
-    title: "",
-    body:""
+    id: 0,
+    title: "titulo default",
+    body:"body default"
   }
 
   constructor(private _postService: PostService) {}
@@ -24,5 +25,11 @@ export class BlogComponent implements OnInit {
     this._postService
       .getPosts()
       .subscribe((posts) => (this.posts = posts.slice(0,5)));
+  }
+
+  public saveForm():void{
+    console.log(this.myForm);
+    const clone = {...this.myForm}
+    this.posts.push(clone)
   }
 }

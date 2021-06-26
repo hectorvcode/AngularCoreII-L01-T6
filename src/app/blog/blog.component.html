@@ -1,29 +1,38 @@
 <h2 class="m-6 text-3xl text-red-800">Formulario template-driven</h2>
 
 <div class="w-full max-w-xs">
-    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" name="myForm" #myCountryForm="ngForm" ngSubmit="saveCountry()">
+    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" name="myForm" #myPostForm="ngForm" (ngSubmit)="saveForm()">
       <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="id">
           Id
         </label>
-        <input class="inputModel" id="id" type="text" placeholder="id" [(ngModel)]="myForm.id" #id="ngModel">
+        <input class="inputModel" id="id" type="number" placeholder="id" [(ngModel)]="myForm.id" name="id" #id="ngModel" required>
+        <p [hidden]="id.valid || id.pristine">
+          This field is required
+        </p>
       </div>
       <div class="mb-6">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
           Title
         </label>
-        <input class="inputModel" id="title" type="text" placeholder="title" [(ngModel)]="myForm.title" #title="ngModel">
+        <input class="inputModel" id="title" type="text" placeholder="title" [(ngModel)]="myForm.title" name="title" #title="ngModel" required>
+        <p [hidden]="title.valid || title.pristine">
+          This field is required
+        </p>
       </div>
       <div class="mb-6">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="body">
           Body
         </label>
-        <textarea class="inputModel" id="body" name="body" rows="5" cols="33" [(ngModel)]="myForm.body" #body="ngModel">
+        <textarea class="inputModel" id="body" name="body" rows="5" cols="33" [(ngModel)]="myForm.body" name="body" #body="ngModel" required>
         </textarea>
+        <p [hidden]="body.valid || body.pristine">
+          This field is required
+        </p>
       </div>
       <div class="flex items-center justify-between">
-        <button class="mybutton" type="submit">
-          Submit
+        <button class="mybutton" type="submit" [disabled]="myPostForm.form.invalid">
+          Enviar
         </button>
       </div>
     </form>
@@ -36,7 +45,7 @@
 
 
 <div *ngFor="let post of posts" [ngStyle]="{'display': 'flex'}">
-  <span>{{post.id}}</span>
-  <span>{{post.title}}</span>
-  <span>{{post.body}}</span>
+  <p> {{post.id}} </p>
+  <p> {{post.title}} </p>
+  <p> {{post.body}} </p>
 </div>
